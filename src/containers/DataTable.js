@@ -54,6 +54,7 @@ let rowsPerPage = parseInt(this.props.rowsNumber);
 //let filteredData = this.props.data.slice(0, rowsPerPage);
 let page = this.state.page;
 let filteredData = allData.slice(page*rowsPerPage, (page*rowsPerPage) + rowsPerPage);
+const pagesVector = ['5','10','15','20'];
 
     return(
     filteredData.map((item, i) => 
@@ -91,7 +92,7 @@ render() {//TODO: quizas pasar el estado de la pagina a una accion en RowNumberS
         </tbody>
       </table>
       <div className="btns">
-      <p> Page: {this.state.page} </p>
+      <p> Page: {this.state.page + 1} </p>
         <NavigationButton className="btn btn-secondary" onClick={this.previousPage} disabled={(this.state.page === 0)}>
           Previous page
         </NavigationButton>
@@ -100,7 +101,7 @@ render() {//TODO: quizas pasar el estado de la pagina a una accion en RowNumberS
           Next page
         </NavigationButton>
         <RowNumberSelector
-          pagesVector={['5','10','15','20']} />
+          pagesVector={pagesVector} />
         <Link to="/newRecord" className="btn btn-primary">
           Insert new record
         </Link>
