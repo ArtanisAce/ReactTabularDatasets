@@ -9,20 +9,18 @@ const PageButton = styled.button`
   background-color: lightgreen
 `;
 
-class PagesSelector extends Component {
+const PagesSelector =  ({pagesVector, changeRowsNumber}) => {
 
-  render(){
     return(
       <div>
-        {this.props.pagesVector.map(function(n,i){
+        {pagesVector.map(function(n,i){
           return (
-            <PageButton key={i} className="page-btn" onClick={(this.props.changeRowsNumber.bind(this,n))}> {n} </PageButton>
+            <PageButton key={i} className="page-btn" onClick={(changeRowsNumber.bind(this,n))}> {n} </PageButton>
           );
         }.bind(this))}
       </div>
     );
   }
-};
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ changeRowsNumber }, dispatch);

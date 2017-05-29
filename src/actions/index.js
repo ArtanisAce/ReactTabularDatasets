@@ -1,15 +1,40 @@
 import {mockedData} from '../mockedData';
-
+import { createAction } from 'redux-actions';
+export const fetchD = createAction('GET_DATA');
 
 export function fetchData() {
+  
+  return function(dispatch) {
+      let data;
 
-let data = mockedData;
+if (localStorage['RTD:createdPosts'] !== undefined){
+  let mockedDataWithRecord = JSON.parse(localStorage['RTD:createdPosts']);
+  data = [...mockedData, mockedDataWithRecord];
+} else {
+  data = mockedData;
+}
 
-	return {
-    type: 'GET_DATA',
-    payload: data
+	// return {
+  //   type: 'GET_DATA',
+  //   payload: data
+  // }
+
+        dispatch(fetchD({
+        payload: data,
+      }));
   }
+
+
 };
+
+export function handleLogin(user) {
+  localStorage['RTD:user'] = user;
+
+  return {
+    type: 'LOG_IN',
+    payload: user
+  }
+}
 
 export function changeRowsNumber(newNumber) {
 
@@ -28,13 +53,17 @@ export function filterByUser(username) {
   }
 }
 
-export function createRecord(props) {
+export function createRecord(newRecord) {
 
-  console.log(props);
+newRecord.username = localStorage['RTD:user'];
+// Save new record on localStorage (persisting data)
+localStorage['RTD:createdPosts'] = JSON.stringify(newRecord);
+
+let data = [...mockedData, newRecord];
 
   return {
-    type: 'CREATE_RECORD',
-    payload: props
+    type: 'GET_DATA',
+    payload: data
   }
 }
 

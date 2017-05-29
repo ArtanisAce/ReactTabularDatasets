@@ -62,16 +62,16 @@ function validate(formProps) {
 
 class InsertRecord extends Component {
 
-  handleFormSubmit(formProps) {
+  handleFormSubmit = (formProps) => {
     this.props.createRecord(formProps);
-    //TODO: simulate call to server (maybe a promise? redux saga?)
-        browserHistory.push('/');
-      
+  setTimeout(() => {  
+    browserHistory.push('/');
+    }, (2000));    
   }
 
 	render(){
 
-		const { handleSubmit } = this.props;  
+		const { handleSubmit } = this.props;
 
     return (
 			<div>

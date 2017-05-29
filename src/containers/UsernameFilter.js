@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { filterByUser } from '../actions/index';
+import styled from 'styled-components';
+
+const SearchButton = styled.button`
+  margin-left: 8px;
+  background-color: lightgray
+  border-radius: 10%;
+`;
 
 class UsernameFilter extends Component {
     
@@ -10,15 +17,13 @@ class UsernameFilter extends Component {
 
     this.state = { term: '' };
 
-    this.onInputChange = this.onInputChange.bind(this);
-    this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
-  onInputChange(event) {
+  onInputChange = (event) => {
     this.setState({ term: event.target.value });
   }
 
-  onFormSubmit(event) {
+  onFormSubmit = (event) => {
     event.preventDefault();
 
     this.props.filterByUser(this.state.term);
@@ -29,12 +34,12 @@ class UsernameFilter extends Component {
     return (
       <form onSubmit={this.onFormSubmit} className="input-group">
         <input
-          placeholder=""
+          placeholder="Search for a username..."
           className="form-control"
           value={this.state.term}
           onChange={this.onInputChange} />
         <span className="input-group-btn">
-          <button type="submit" className="btn btn-secondary">Filter</button>
+          <SearchButton type="submit" className="btn btn-secondary">Filter</SearchButton>
         </span>
       </form>
     );
